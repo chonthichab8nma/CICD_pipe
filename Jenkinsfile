@@ -1,25 +1,21 @@
 pipeline {
-    agent any
-
-    stages {
+    agent none 
         stage('Build') {
-            agent{
-                docker{
+            agent {
+                docker {
                     image 'node:18-alpine'
-                    reuseNode true
                 }
             }
             steps {
                 echo 'Building...'
                 sh 'npm install'
-                sh 'npm run build' 
+                sh 'npm run build'
             }
         }
         stage('Test') {
-            agent{
-                docker{
+            agent {
+                docker {
                     image 'node:18-alpine'
-                    reuseNode true
                 }
             }
             steps {
@@ -28,17 +24,18 @@ pipeline {
             }
         }
         stage('Deploy') {
-            agent{
-                docker{
+            agent {
+                docker {
                     image 'node:18-alpine'
-                    reuseNode true
                 }
             }
             steps {
                 echo 'Deploying to Netlify...'
                 script {
-                    def netlifyKeys = readProperties file: 'key.txt'
-                    sh "netlify deploy --prod --site ${netlifyKeys.NETLIFY_SITE_ID} --auth ${netlifyKeys.NETLIFY_AUTH_TOKEN}"
+                    withCredentials([string(credentialsId: 'NETLIFY_SITE_ID', variable: 'NETLIFY_SITE_ID'), string(credentialsId: 'NETLIFY_AUTH_TOKEN', variable: 'NETLIFY_AUTH_TOKEN')]) {
+                        sh "npm install -g netlify-cli"
+                        sh "netlify deploy --prod --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN"
+                    }
                 }
             }
         }
