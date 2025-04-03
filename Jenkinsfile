@@ -3,16 +3,11 @@ pipeline {
 
     stages {
         stage('Build Docker Image') {
-            agent {
-                docker {
-                    args '-t my-nodejs-app:latest .'
-                    dockerfile true
-                }
-            }
+            agent any
             steps {
                 echo 'Building Docker image...'
                 script {
-                    docker.build('my-nodejs-app:latest')
+                    docker.build('my-nodejs-app:latest', '.')
                 }
             }
         }
