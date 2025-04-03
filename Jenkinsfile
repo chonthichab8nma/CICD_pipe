@@ -2,6 +2,18 @@ pipeline {
     agent none
 
     stages {
+        stage('Build') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                }
+            }
+            steps {
+                echo 'Building with Docker...'
+                sh 'npm install'
+                sh 'npm run build'
+            }
+        }
         stage('Test') {
             agent {
                 docker {
@@ -9,20 +21,8 @@ pipeline {
                 }
             }
             steps {
-                echo 'Testing...'
+                echo 'Testing with Docker...'
                 sh 'npm test'
-            }
-        }
-          stage('Build') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                }
-            }
-            steps {
-                echo 'Building...'
-                sh 'npm install'
-                sh 'npm run build'
             }
         }
         stage('Deploy') {
@@ -32,7 +32,7 @@ pipeline {
                 }
             }
             steps {
-                echo 'Deploying...'
+                echo 'Deploying with Docker...'
                 script {
                     withCredentials([string(credentialsId: 'NETLIFY_SITE_ID', variable: 'NETLIFY_SITE_ID'), string(credentialsId: 'NETLIFY_AUTH_TOKEN', variable: 'NETLIFY_AUTH_TOKEN')]) {
                         sh "npm install -g netlify-cli"
@@ -48,7 +48,7 @@ pipeline {
                 }
             }
             steps {
-                echo 'Post deploy...'
+                echo 'Post deploy with Docker...'
                 echo 'Deployment successful!'
             }
         }
