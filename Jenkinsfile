@@ -3,6 +3,12 @@ pipeline {
 
     stages {
         stage('Build') {
+            agent{
+                docker{
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }
             steps {
                 echo 'Building...'
                 sh 'npm install'
@@ -10,12 +16,24 @@ pipeline {
             }
         }
         stage('Test') {
+            agent{
+                docker{
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }
             steps {
                 echo 'Testing...'
                 sh 'npm test'
             }
         }
         stage('Deploy') {
+            agent{
+                docker{
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }
             steps {
                 echo 'Deploying to Netlify...'
                 script {
