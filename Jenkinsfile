@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        NETLIFY_SITE_ID = 'f561d6c4-55b4-40a8-99db-d284ea24aafc'
-        NETLIFY_AUTH = credentials('netlify-token')
-    }
-
     stages {
         stage('Build') {
             agent {
@@ -16,7 +11,7 @@ pipeline {
             }
             steps {
                 sh '''
-                    echo "================Installing dependencies================"
+                    echo "================ Installing dependencies ================"
                     npm ci
                 '''
             }
@@ -31,23 +26,8 @@ pipeline {
             }
             steps {
                 sh '''
-                    echo "================Running tests================"
+                    echo "================ Running tests ================"
                     npm test || echo "Tests failed but continuing..."
-                '''
-            }
-        }
-
-        stage('Deploy') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
-            steps {
-                sh '''
-                    echo "================Deploying the project================"
-                    echo "This part needs to be changed based on how you deploy your Node.js app"
                 '''
             }
         }
@@ -55,7 +35,7 @@ pipeline {
 
     post {
         always {
-            echo "Pipeline finished"
+            echo "Build & Test stages completed!"
         }
     }
 }
