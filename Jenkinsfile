@@ -16,10 +16,10 @@ pipeline {
             steps {
                 echo 'Running tests...'
                 script {
-                    sh 'curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -'  
-                    sh 'sudo apt-get install -y nodejs'  
-                    sh 'npm install' 
-                    sh 'npm test'  
+                    docker.image('node:18-alpine').inside {
+                        sh 'npm install'  // ติดตั้ง dependencies
+                        sh 'npm test'  // รันการทดสอบ
+                    }
                 }
             }
         }
