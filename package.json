@@ -5,8 +5,8 @@
     "main": "src/index.js",
     "scripts": {
         "start": "node src/index.js",
-        "build": "webpack --mode production",
-        "test": "jest --forceExit --detectOpenHandles"
+        "test": "jest --forceExit --detectOpenHandles",
+        "build": "echo 'No build required'"
     },
     "dependencies": {
         "browserify-fs": "^1.0.0",
@@ -31,3 +31,4 @@
         "webpack-cli": "^6.0.1"
     }
 }
+
