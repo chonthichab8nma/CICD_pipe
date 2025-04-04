@@ -16,9 +16,10 @@ pipeline {
             steps {
                 echo 'Running tests...'
                 script {
-                    
-                    sh 'npm install'  
-                    sh 'npm test'     
+                    sh 'curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -'  
+                    sh 'sudo apt-get install -y nodejs'  
+                    sh 'npm install' 
+                    sh 'npm test'  
                 }
             }
         }
