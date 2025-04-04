@@ -1,0 +1,231 @@
+Started by user admin
+Obtained Jenkinsfile from git https://github.com/chonthichab8nma/CICD_pipe.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/CICD_pipe
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+The recommended git tool is: git
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/CICD_pipe/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/chonthichab8nma/CICD_pipe.git # timeout=10
+Fetching upstream changes from https://github.com/chonthichab8nma/CICD_pipe.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.5'
+ > git fetch --tags --force --progress -- https://github.com/chonthichab8nma/CICD_pipe.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 992ba77411d12826b3f343ca6bc03c796d88fb0b (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 992ba77411d12826b3f343ca6bc03c796d88fb0b # timeout=10
+Commit message: "up"
+ > git rev-list --no-walk 992ba77411d12826b3f343ca6bc03c796d88fb0b # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] getContext
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ docker inspect -f . node:18-alpine
+.
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+Jenkins seems to be running inside container c1adf396b04503ca08fe7dfb4d4fed9c207cecff5a8c7cd163c7cc9824478c60
+but /var/jenkins_home/workspace/CICD_pipe could not be found among []
+but /var/jenkins_home/workspace/CICD_pipe@tmp could not be found among []
+$ docker run -t -d -u 1000:1000 -w /var/jenkins_home/workspace/CICD_pipe -v /var/jenkins_home/workspace/CICD_pipe:/var/jenkins_home/workspace/CICD_pipe:rw,z -v /var/jenkins_home/workspace/CICD_pipe@tmp:/var/jenkins_home/workspace/CICD_pipe@tmp:rw,z -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** node:18-alpine cat
+$ docker top 0cd3c5cf76dfa091a66f67a4d34defd516d240e2868dc60d67b73077bf6a562a -eo pid,comm
+[Pipeline] {
+[Pipeline] sh
++ echo '================ Installing dependencies ================'
+================ Installing dependencies ================
++ npm ci
+npm warn deprecated urix@0.1.0: Please see https://github.com/lydell/urix#deprecated
+npm warn deprecated w3c-hr-time@1.0.2: Use your platform's native performance.now() and performance.timeOrigin.
+npm warn deprecated source-map-url@0.4.1: See https://github.com/lydell/source-map-url#deprecated
+npm warn deprecated source-map-resolve@0.5.3: See https://github.com/lydell/source-map-resolve#deprecated
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated sane@4.1.0: some dependency vulnerabilities fixed, support for node < 10 dropped, and newer ECMAScript syntax/features added
+npm warn deprecated resolve-url@0.2.1: https://github.com/lydell/resolve-url#deprecated
+npm warn deprecated superagent@8.1.2: Please upgrade to v9.0.0+ as we have fixed a public vulnerability with formidable dependency. Note that v9.0.0+ requires Node.js v14.18.0+. See https://github.com/ladjs/superagent/pull/1800 for insight. This project is supported and maintained by the team at Forward Email @ https://forwardemail.net
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated npmlog@5.0.1: This package is no longer supported.
+npm warn deprecated gauge@3.0.2: This package is no longer supported.
+npm warn deprecated are-we-there-yet@2.0.0: This package is no longer supported.
+npm warn deprecated level-js@2.2.4: Superseded by browser-level (https://github.com/Level/community#faq)
+npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+npm warn deprecated levelup@0.18.6: Superseded by abstract-level (https://github.com/Level/community#faq)
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated domexception@2.0.1: Use your platform's native DOMException instead
+npm warn deprecated deferred-leveldown@0.2.0: Superseded by abstract-level (https://github.com/Level/community#faq)
+npm warn deprecated abab@2.0.6: Use your platform's native atob() and btoa() methods instead
+npm warn deprecated abstract-leveldown@0.12.4: Superseded by abstract-level (https://github.com/Level/community#faq)
+npm warn deprecated glob@8.1.0: Glob versions prior to v9 are no longer supported
+npm warn deprecated object-keys@0.2.0: Please update to the latest object-keys
+
+added 1924 packages, and audited 1928 packages in 27s
+
+286 packages are looking for funding
+  run `npm fund` for details
+
+27 vulnerabilities (23 moderate, 4 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+[Pipeline] }
+$ docker stop --time=1 0cd3c5cf76dfa091a66f67a4d34defd516d240e2868dc60d67b73077bf6a562a
+$ docker rm -f --volumes 0cd3c5cf76dfa091a66f67a4d34defd516d240e2868dc60d67b73077bf6a562a
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] getContext
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ docker inspect -f . node:18-alpine
+.
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+Jenkins seems to be running inside container c1adf396b04503ca08fe7dfb4d4fed9c207cecff5a8c7cd163c7cc9824478c60
+but /var/jenkins_home/workspace/CICD_pipe could not be found among []
+but /var/jenkins_home/workspace/CICD_pipe@tmp could not be found among []
+$ docker run -t -d -u 1000:1000 -w /var/jenkins_home/workspace/CICD_pipe -v /var/jenkins_home/workspace/CICD_pipe:/var/jenkins_home/workspace/CICD_pipe:rw,z -v /var/jenkins_home/workspace/CICD_pipe@tmp:/var/jenkins_home/workspace/CICD_pipe@tmp:rw,z -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** node:18-alpine cat
+$ docker top 033fbae4a7f4ce0856f0f5c4b891a018c60e93938a18bd9dfbb6ecced730621a -eo pid,comm
+[Pipeline] {
+[Pipeline] sh
++ echo '================ Running tests ================'
+================ Running tests ================
++ npm test
+
+> my-nodejs-app@1.0.0 test
+> jest --forceExit --detectOpenHandles
+
+PASS test/index.test.js
+  API Tests
+    ✓ should return hello message (75 ms)
+
+  console.log
+    Test server running...
+
+      at Server.<anonymous> (test/index.test.js:8:13)
+
+  console.log
+    Server closed
+
+      at Server.<anonymous> (test/index.test.js:15:13)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        0.844 s
+Ran all test suites.
+[Pipeline] }
+$ docker stop --time=1 033fbae4a7f4ce0856f0f5c4b891a018c60e93938a18bd9dfbb6ecced730621a
+$ docker rm -f --volumes 033fbae4a7f4ce0856f0f5c4b891a018c60e93938a18bd9dfbb6ecced730621a
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+[Pipeline] getContext
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ docker inspect -f . node:18-alpine
+.
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+Jenkins seems to be running inside container c1adf396b04503ca08fe7dfb4d4fed9c207cecff5a8c7cd163c7cc9824478c60
+but /var/jenkins_home/workspace/CICD_pipe could not be found among []
+but /var/jenkins_home/workspace/CICD_pipe@tmp could not be found among []
+$ docker run -t -d -u 1000:1000 -w /var/jenkins_home/workspace/CICD_pipe -v /var/jenkins_home/workspace/CICD_pipe:/var/jenkins_home/workspace/CICD_pipe:rw,z -v /var/jenkins_home/workspace/CICD_pipe@tmp:/var/jenkins_home/workspace/CICD_pipe@tmp:rw,z -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** node:18-alpine cat
+$ docker top d25a95738986c6754b38f1b6da3027c945b066414833b575325b907b48ffc7e3 -eo pid,comm
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] withCredentials
+Masking supported pattern matches of $NETLIFY_AUTH_TOKEN
+[Pipeline] {
+[Pipeline] sh
++ npm install netlify-cli
+
+changed 1 package, and audited 1928 packages in 8s
+
+286 packages are looking for funding
+  run `npm fund` for details
+
+27 vulnerabilities (23 moderate, 4 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
++ node_modules/.bin/netlify --version
+netlify-cli/19.1.5 linux-arm64 node-v18.20.8
++ echo 'Deploying to production. Site ID: 3ac3f845-8a36-4bcb-80eb-2562c4ec8b5e'
+Deploying to production. Site ID: 3ac3f845-8a36-4bcb-80eb-2562c4ec8b5e
++ node_modules/.bin/netlify status
+──────────────────────┐
+ Current Netlify User │
+──────────────────────┘
+Name:  Chonthicha Boonma
+Email: chonthichaboo2@gmail.com
+Teams: 
+  chonthichab8nma’s team: Owner Reviewer
+────────────────────┐
+ Netlify Site Info  │
+────────────────────┘
+Current site: superlative-taiyaki-2ffe62
+Netlify TOML: /var/jenkins_home/workspace/CICD_pipe/netlify.toml
+Admin URL:    https://app.netlify.com/sites/superlative-taiyaki-2ffe62
+Site URL:     https://superlative-taiyaki-2ffe62.netlify.app
+Site Id:      3ac3f845-8a36-4bcb-80eb-2562c4ec8b5e
+
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+$ docker stop --time=1 d25a95738986c6754b38f1b6da3027c945b066414833b575325b907b48ffc7e3
+$ docker rm -f --volumes d25a95738986c6754b38f1b6da3027c945b066414833b575325b907b48ffc7e3
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+Build & Test stages completed!
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
