@@ -6,7 +6,7 @@
     "scripts": {
         "start": "node src/index.js",
         "build": "webpack --mode production",
-        "test": "jest"
+        "test": "jest --forceExit --detectOpenHandles"
     },
     "dependencies": {
         "browserify-zlib": "^0.2.0",
