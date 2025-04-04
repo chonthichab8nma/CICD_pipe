@@ -1,9 +1,8 @@
 pipeline {
     agent any
 
-    environment{
+    environment {
         NETLIFY_SITE_ID = '3ac3f845-8a36-4bcb-80eb-2562c4ec8b5e'
-        NETLIFY_AUTH_TOKEN = withCredential('netlify-token')
     }
 
     stages {
@@ -45,12 +44,17 @@ pipeline {
                 }
             }
             steps {
-                sh '''
-                    npm install netlify-cli
-                    node_mudoles/.bin/netlify --version
-                    echo "Deploying to production. Site ID: $NETLIFY_SITE_ID"
-                    node_mudoles/.bin/netlify status
-                '''
+                script {
+                    // ใช้ withCredentials ภายใน script block
+                    withCredentials([string(credentialsId: 'netlify-token', variable: 'NETLIFY_AUTH_TOKEN')]) {
+                        sh '''
+                            npm install netlify-cli
+                            node_modules/.bin/netlify --version
+                            echo "Deploying to production. Site ID: $NETLIFY_SITE_ID"
+                            node_modules/.bin/netlify status
+                        '''
+                    }
+                }
             }
         }
     }
