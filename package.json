@@ -9,13 +9,17 @@
         "test": "jest --forceExit --detectOpenHandles"
     },
     "dependencies": {
+        "browserify-fs": "^1.0.0",
         "browserify-zlib": "^0.2.0",
         "buffer": "^6.0.3",
         "crypto-browserify": "^3.12.1",
         "express": "^4.17.1",
+        "mime-db": "^1.54.0",
+        "mime-types": "^3.0.1",
         "path-browserify": "^1.0.1",
         "querystring-es3": "^0.2.1",
         "stream-browserify": "^3.0.0",
+        "stream-http": "^3.2.0",
         "string_decoder": "^1.3.0",
         "url": "^0.11.4",
         "util": "^0.12.5"
@@ -24,7 +28,6 @@
         "jest": "^26.6.3",
         "netlify-cli": "^19.1.5",
         "supertest": "^6.1.3",
-        "webpack": "^5.98.0",
         "webpack-cli": "^6.0.1"
     }
 }
