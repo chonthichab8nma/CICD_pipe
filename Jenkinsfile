@@ -11,6 +11,18 @@ pipeline {
                 }
             }
         }
+        stage('Test') {
+            agent any
+            steps {
+                echo 'Running tests...'
+                script {
+                    
+                    sh 'npm install'  
+                    sh 'npm test'     
+                }
+            }
+        }
+
         stage('Deploy') {
             agent any
             steps {
